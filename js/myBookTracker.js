@@ -42,7 +42,6 @@ let library = [
         author: "Kjellsdotter, Nilla",
         isRead: false,
     },
-
 ];
 //addBook() – asks for details and adds a new book object to the library
 function addBook() {
@@ -66,8 +65,12 @@ function addBook() {
 function removeBook(removeBookTitle) {
     let book = library.find(book => book.title === removeBookTitle);
     let positionRemove = library.indexOf(book);
+    if (positionRemove < 0) {
+        alert("Invalid choice");
+    } else {
     library.splice(positionRemove, 1);
     alert("Your book have now been removed from your library.");
+    }   
 }
 //listBooks() – display a list of all books
 function listBooks() {
@@ -79,13 +82,17 @@ function listBooks() {
 //markAsRead(title) – finds a book by title and sets isRead to true
 function markAsRead(findTitle) {
     let book = library.find(book => book.title === findTitle);
-    book.isRead = true;
-    alert("This book is now marked as read");
+    if (book === undefined) {
+        alert("Invalid choice");
+    } else {
+        book.isRead = true;
+        alert("This book is now marked as read");
+    }
 }
 //list only unread books
 function booksNotRead() {
     let bookNotRead = library.filter(book => book.isRead === false);
-    console.log("These books are not read yet: ");
+    console.log("These books are not read yet:");
     for (i = 0; i < bookNotRead.length; i++) {
         console.log(`${bookNotRead[i].title}; by: ${bookNotRead[i].author}`);
     }
@@ -131,4 +138,3 @@ function myBookTracker() {
     }
 }
 myBookTracker();
-console.log(library);
